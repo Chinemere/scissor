@@ -1,11 +1,11 @@
-from utils import db
+from ..utils import db
 
 class Url(db.Model):
-    __table__ = 'urls'
-    id = db. Column(db.Integer(), primary_key=True)
+    __tablename__ = 'urls'
+    id = db.Column(db.Integer(), primary_key=True)
     url_source= db.Column(db.String(1200), nullable=False)
     scissored_url = db.Column(db.String(10), unique=True, nullable=False)
-    clicks = db. Column(db.Integer(), nullable=False, default= 0)
+    clicks = db.Column(db.Integer(), nullable=False, default= 0)
     user = db.Column(db.Integer(), db.ForeignKey('users.id') )
 
     
