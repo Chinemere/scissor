@@ -7,6 +7,8 @@ from .auth.views import auth_namespace
 from .models.users import User
 from .models.url import Url
 from flask_migrate import Migrate
+from flask_jwt_extended import JWTManager
+from .users.views import user_namespace
 
 
 def create_app(config=config_dict['dev']):
@@ -17,8 +19,10 @@ def create_app(config=config_dict['dev']):
 
     api.add_namespace(url_namespace)
     api.add_namespace(auth_namespace, path='/auth')
+    api.add_namespace(user_namespace, path='/users')
     db.init_app(app)
     migrate = Migrate(app, db)
+    jwt= JWTManager(app)
     @app.shell_context_processor
     def make_shell_context():
         return {

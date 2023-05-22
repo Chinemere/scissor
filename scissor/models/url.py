@@ -1,4 +1,6 @@
 from ..utils import db
+import random, string
+from random import randint
 
 class Url(db.Model):
     __tablename__ = 'urls'
@@ -25,6 +27,23 @@ class Url(db.Model):
     @classmethod
     def get_url_id(cls, id):
         return cls.query.get_or_404(id)
+    
+
+    #function to generate short urls
+    @classmethod
+    def create_short_url( cls, length):
+        letters = string.ascii_letters+ string.digits
+        random_string = ''.join(random.choice(letters) for i in range(length))
+        if not cls.query.filter_by(scissored_url=random_string).first():
+            return random_string
+    
+    @classmethod
+    def create_custom_url( cls, custom_name):
+        letters = custom_name
+        random_string = ''.join(letters)
+        if not cls.query.filter_by(scissored_url=random_string).first():
+            return letters
+
 
 
     

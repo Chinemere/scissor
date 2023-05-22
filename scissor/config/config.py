@@ -1,10 +1,14 @@
 import os
 from decouple import config
+from datetime import timedelta
 
 BASE_DIR= os.path.dirname(os.path.realpath(__file__))
 
 class Config:
     SECRET_KEY = config('SECRET_KEY', 'secret')
+    JWT_ACCESS_TOKEN_EXPIRES = timedelta(minutes=60)
+    JWT_REFRESH_TOKEN_EXPIRES = timedelta(minutes=60)
+    JWT_SECRET_KEY = ('JWT_SECRET_KEY')
 
 
 class DevConfig(Config):

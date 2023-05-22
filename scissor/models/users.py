@@ -1,11 +1,12 @@
 from ..utils import db
+
 class User(db.Model):
     __tablename__ = 'users'
     id = db.Column(db.Integer(), primary_key=True)
     username = db.Column(db.String(), nullable= False, unique=True)
     email= db.Column(db.String(), nullable= False, unique=True)
     passwordHash= db.Column(db.Text(), nullable= False)
-    url= db.relationship('URL', backref='url_generator', lazy=True)
+    url= db.relationship('Url', backref='url_generator', lazy=True)
 
     def __repr__(self):
         return f'<User {self.username}>'
