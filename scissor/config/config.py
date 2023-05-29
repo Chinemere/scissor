@@ -2,6 +2,8 @@ import os
 from decouple import config
 from datetime import timedelta
 
+
+
 BASE_DIR= os.path.dirname(os.path.realpath(__file__))
 
 class Config:
@@ -16,6 +18,7 @@ class DevConfig(Config):
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SQLALCHEMY_ECHO = True
     DEBUG = True
+
 
 
 class TestConfig(Config):

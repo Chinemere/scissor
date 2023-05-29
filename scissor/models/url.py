@@ -1,6 +1,11 @@
 from ..utils import db
 import random, string
 from random import randint
+from datetime import datetime, timedelta
+from sqlalchemy import DateTime, Column
+
+
+
 
 class Url(db.Model):
     __tablename__ = 'urls'
@@ -9,6 +14,7 @@ class Url(db.Model):
     scissored_url = db.Column(db.String(10), unique=True, nullable=False)
     clicks = db.Column(db.Integer(), nullable=False, default= 0)
     user = db.Column(db.Integer(), db.ForeignKey('users.id') )
+    created_at = Column(DateTime, default=datetime.utcnow)
 
     
     def __repr__(self):
@@ -43,6 +49,28 @@ class Url(db.Model):
         random_string = ''.join(letters)
         if not cls.query.filter_by(scissored_url=random_string).first():
             return letters
+    
+    @classmethod
+    def getTime(cls, dt):
+        now = datetime.utcnow()
+        timeDifference= now - dt
+
+        if timeDifference < timedelta(minutes=1):
+            return ' Just now'
+        elif timeDifference < timedelta(hours=1):
+            minutes = int(timeDifference.total_seconds()/60)
+            return f"{minutes}  minutes ago "
+        elif timeDifference < timedelta(days=1):
+            hours = int(timeDifference.total_seconds()/3600)
+            return f" {hours} hours ago"
+        elif timeDifference < timedelta(weeks=1):
+            days = timeDifference.days
+            return f"{days} days ago"
+        else:
+            years = now.year-dt.year
+            return f"{years} years ago"
+        
+
 
 
 

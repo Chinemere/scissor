@@ -4,7 +4,7 @@ from ..models.users import User
 from werkzeug.exceptions import Conflict, BadRequest
 from werkzeug.security import generate_password_hash, check_password_hash
 from http import HTTPStatus
-from flask_jwt_extended import jwt_manager, jwt_required, get_jwt_identity, create_access_token, create_refresh_token, current_user, get_current_user
+from flask_jwt_extended import get_jwt_identity,    create_access_token, create_refresh_token, current_user, get_current_user
 
 
 
